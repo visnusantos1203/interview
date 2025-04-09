@@ -39,6 +39,10 @@ class Grader
     end
   end
 
+  def subject_headers
+    @subject_headers ||= @file.headers.reject { |header| DEFAULT_EXCLUDED_HEADERS.include?(header) }
+  end
+  
   private
 
   def find_student_row(student)

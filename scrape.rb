@@ -10,12 +10,15 @@ table = Terminal::Table.new do |t|
   t.headings = grader.headers
   
   grader.students.each do |student|
-    t.add_row([ student.full_name,
-                grader.get_grade(student, "english"),
-                grader.get_grade(student, "math"),
-                grader.get_grade(student, "physics"),
-                grader.average(student) ])
-  
+    row = [student.full_name]
+
+    grader.subject_headers.each do |subject|
+      row << grader.get_grade(student, subject)
+    end
+    
+    row << grader.average(student)
+
+    t.add_row(row)
     t.add_separator unless student == grader.students.last
   end
 end
