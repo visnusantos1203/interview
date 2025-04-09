@@ -17,6 +17,13 @@ RSpec.describe Grader do
     end
   end
 
+
+  it "should return the grade for a specific subject" do
+    expect(grader.get_grade(student, "english")).to eq("92")
+    expect(grader.get_grade(student, "math")).to eq("88")
+    expect(grader.get_grade(student, "physics")).to eq("85")
+  end
+
   it "should return the students" do
     expect(grader.students).to be_an(Array)
     expect(grader.students.first).to be_a(Student)
