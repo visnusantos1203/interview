@@ -33,7 +33,6 @@ class Grader
   end
 
   def students
-    # puts "Creating students..."
     @students ||= @file.map do |row|
       Student.new(row["first_name"], row["last_name"], row["age"])
     end
