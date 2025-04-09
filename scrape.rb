@@ -13,7 +13,8 @@ table = Terminal::Table.new do |t|
     t.add_row([ student.full_name,
                 grader.get_grade(student, "english"),
                 grader.get_grade(student, "math"),
-                grader.get_grade(student, "physics") ])
+                grader.get_grade(student, "physics"),
+                grader.average(student) ])
   
     t.add_separator unless student == grader.students.last
   end

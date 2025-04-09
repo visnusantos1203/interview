@@ -8,6 +8,13 @@ class Grader
     @file = CSV.read(file, headers: true)
   end
 
+  def average(student)
+    row = find_student_row(student)
+    return nil unless row
+    
+    subjects = %w[english math physics] 
+    subjects.sum { |subject| row[subject].to_i } / subjects.length
+  end
 
   def get_grade(student, subject)
     row = find_student_row(student)
