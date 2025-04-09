@@ -1,6 +1,7 @@
 RSpec.describe Grader do
   let(:file) { File.open("./files/grades.csv") }
   let(:grader) { Grader.new(file) }
+  let(:student) { Student.new("Billy", "Joel", 20) }
 
   describe "#initialize" do
     it "should read the CSV file" do
@@ -15,5 +16,12 @@ RSpec.describe Grader do
       expect(grader.headers).not_to include("first_name", "last_name", "age")
     end
   end
+
+  it "should return the students" do
+    expect(grader.students).to be_an(Array)
+    expect(grader.students.first).to be_a(Student)
+    expect(grader.students.first.first_name).to eq("Billy")
+    expect(grader.students.first.last_name).to eq("Joel")
+    expect(grader.students.first.age).to eq("14")
   end
 end
