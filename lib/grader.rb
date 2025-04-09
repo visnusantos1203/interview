@@ -4,6 +4,8 @@ require "csv"
 require "student"
 
 class Grader
+  DEFAULT_EXCLUDED_HEADERS = %w[first_name last_name age].freeze
+
   def initialize(file)
     @file = CSV.read(file, headers: true)
   end
@@ -20,9 +22,9 @@ class Grader
     row = find_student_row(student)
     row&.[](subject)
   end
+
   def headers
-    excluded_headers = %w[first_name last_name age]
-    headers = @file.headers.reject { |header| excluded_headers.include?(header) }
+    headers = @file.headers.reject { |header| DEFAULT_EXCLUDED_HEADERS.include?(header) }
 
     headers.unshift("Name")
     headers << "Average"
@@ -31,12 +33,15 @@ class Grader
   end
 
   def students
-    # puts "Creating students..."
     @students ||= @file.map do |row|
       Student.new(row["first_name"], row["last_name"], row["age"])
     end
   end
 
+  def subject_headers
+    @subject_headers ||= @file.headers.reject { |header| DEFAULT_EXCLUDED_HEADERS.include?(header) }
+  end
+  
   private
 
   def find_student_row(student)
