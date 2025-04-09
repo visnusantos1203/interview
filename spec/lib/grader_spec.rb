@@ -17,6 +17,24 @@ RSpec.describe Grader do
     end
   end
 
+  describe "average" do
+    context "when student is not found" do
+      let(:student) { Student.new("Unkown", "Unkown", 14) }
+
+      it "should return nil" do
+        expect(grader.average(student)).to be_nil
+      end
+    end
+
+    context "when student is found" do
+      let(:student) { Student.new("Billy", "Joel", 14) }
+
+      it "should return the correct average" do
+        expect(grader.average(student)).to be_a(Integer)
+        expect(grader.average(student)).to eq(88)
+      end
+    end
+  end
 
   it "should return the grade for a specific subject" do
     expect(grader.get_grade(student, "english")).to eq("92")
